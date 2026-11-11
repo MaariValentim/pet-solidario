@@ -32,6 +32,12 @@ O MVP não processa pagamentos e não inclui aplicativo móvel, logística, cont
 
 As credenciais padrão são apenas para desenvolvimento local. Não versione senhas ou credenciais reais.
 
+## API de campanhas
+
+- `GET /api/campanhas`: consulta as campanhas abertas e retorna os dados em JSON.
+
+Na inicialização, o Flyway aplica as migrações SQL em `src/main/resources/db/migration`. O Hibernate valida se o modelo Java corresponde à estrutura do banco.
+
 ## Estrutura inicial
 
 O código Java fica em `src/main/java/br/com/petsolidario` e as configurações em `src/main/resources`. As funcionalidades serão adicionadas em etapas, mantendo o escopo do MVP.
