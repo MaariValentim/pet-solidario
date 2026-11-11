@@ -1,0 +1,25 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse / Spring Tool Suite
+.classpath
+.project
+.settings/
+.sts4-cache/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Configurações e segredos locais
+.env
+.env.*
+!.env.example
+application-local.properties
