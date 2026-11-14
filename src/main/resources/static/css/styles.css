@@ -1,0 +1,275 @@
+:root {
+    color-scheme: light;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #202b25;
+    background: #fbfaf6;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    --green: #163b2e;
+    --green-light: #e8f0eb;
+    --text-muted: #4b5b52;
+    --border: #cbd5ce;
+    --surface: #ffffff;
+    --focus: #9a4a00;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--green);
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+.skip-link {
+    position: absolute;
+    z-index: 1;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.7rem 1rem;
+    transform: translateY(-180%);
+    border-radius: 0.4rem;
+    color: #ffffff;
+    background: var(--green);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem max(1.25rem, calc((100vw - 68rem) / 2));
+    color: #ffffff;
+    background: var(--green);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: inherit;
+    font-size: 1.15rem;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.brand-mark {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+}
+
+.header-note {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.page-content {
+    width: min(100% - 2.5rem, 68rem);
+    margin: 0 auto;
+}
+
+.intro {
+    max-width: 48rem;
+    padding: clamp(3rem, 8vw, 6rem) 0 3rem;
+}
+
+.eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+    overflow-wrap: anywhere;
+}
+
+h1 {
+    max-width: 14ch;
+    margin: 0;
+    font-size: clamp(2.2rem, 6vw, 4.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+}
+
+.intro-copy {
+    max-width: 58ch;
+    margin: 1.25rem 0 0;
+    color: var(--text-muted);
+    font-size: 1.15rem;
+}
+
+.campaigns {
+    padding: 2rem 0 4rem;
+    border-top: 1px solid var(--border);
+}
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    line-height: 1.2;
+}
+
+.section-copy {
+    max-width: 34ch;
+    margin: 0;
+    color: var(--text-muted);
+}
+
+.status-message,
+.error-message {
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    background: var(--surface);
+}
+
+.status-message {
+    color: var(--text-muted);
+}
+
+.error-message {
+    border-color: #9b3030;
+    color: #6d1e1e;
+}
+
+.error-message p {
+    margin-top: 0;
+}
+
+.button {
+    min-height: 2.75rem;
+    padding: 0.55rem 1rem;
+    border: 2px solid var(--green);
+    border-radius: 0.4rem;
+    color: #ffffff;
+    background: var(--green);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #0e2d22;
+}
+
+.campaign-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.campaign-card {
+    height: 100%;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--surface);
+}
+
+.campaign-card h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+
+.campaign-summary {
+    margin: 0.75rem 0;
+    color: var(--text-muted);
+}
+
+.campaign-card details {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.8rem;
+}
+
+.campaign-card summary {
+    color: var(--green);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.campaign-card details p {
+    margin-bottom: 0;
+}
+
+.campaign-card details p + p {
+    margin-top: 0.75rem;
+}
+
+.site-footer {
+    padding: 1.5rem max(1.25rem, calc((100vw - 68rem) / 2));
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    background: #f1f3ef;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    max-width: 68rem;
+    margin: 0 auto;
+}
+
+.site-footer p + p {
+    margin-top: 0.35rem;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 40rem) {
+    .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 1rem 1.25rem;
+    }
+
+    .header-note {
+        font-size: 0.9rem;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

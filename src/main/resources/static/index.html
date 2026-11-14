@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#163b2e">
+    <title>PetSolidário — campanhas de proteção animal</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/campanhas.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="PetSolidário, página inicial">
+            <span class="brand-mark" aria-hidden="true">P</span>
+            <span>PetSolidário</span>
+        </a>
+        <p class="header-note">Apoio que aproxima pessoas e causas animais</p>
+    </header>
+
+    <main id="conteudo" class="page-content">
+        <section class="intro" aria-labelledby="titulo-principal">
+            <p class="eyebrow">Campanhas de proteção animal</p>
+            <h1 id="titulo-principal">Toda ajuda começa com informação clara.</h1>
+            <p class="intro-copy">
+                Consulte as necessidades divulgadas pelas instituições e veja como contribuir
+                pelos canais oficiais de cada campanha.
+            </p>
+        </section>
+
+        <section class="campaigns" aria-labelledby="titulo-campanhas">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Encontre uma forma de ajudar</p>
+                    <h2 id="titulo-campanhas">Campanhas abertas</h2>
+                </div>
+                <p class="section-copy">As campanhas encerradas não aparecem nesta lista.</p>
+            </div>
+
+            <p id="estado-carregamento" class="status-message" role="status" aria-live="polite" aria-atomic="true">
+                Carregando campanhas...
+            </p>
+
+            <div id="estado-erro" class="error-message" role="alert" hidden>
+                <p>Não foi possível carregar as campanhas agora.</p>
+                <button id="tentar-novamente" class="button" type="button">Tentar novamente</button>
+            </div>
+
+            <ul id="lista-campanhas" class="campaign-list" aria-label="Campanhas abertas"></ul>
+
+            <noscript>
+                <p class="status-message">Ative o JavaScript para consultar as campanhas disponíveis.</p>
+            </noscript>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Antes de contribuir, confirme as informações e os canais de doação diretamente com a instituição.</p>
+        <p>PetSolidário é um MVP acadêmico desenvolvido para facilitar o acesso às campanhas.</p>
+    </footer>
+</body>
+</html>
