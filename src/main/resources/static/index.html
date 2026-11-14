@@ -12,15 +12,24 @@
     <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
     <header class="site-header">
-        <a class="brand" href="/">
-            <span class="brand-mark" aria-hidden="true">P</span>
-            <span>PetSolidário</span>
-        </a>
-        <p class="header-note">Apoio que aproxima pessoas e causas animais</p>
+        <div class="header-inner">
+            <a class="brand" href="#inicio">
+                <span class="brand-mark" aria-hidden="true">P</span>
+                <span>PetSolidário</span>
+            </a>
+            <nav class="primary-navigation" aria-label="Navegação principal">
+                <ul class="navigation-list">
+                    <li><a class="navigation-link" href="#inicio">Início</a></li>
+                    <li><a class="navigation-link" href="#campanhas">Campanhas</a></li>
+                    <li><a class="navigation-link" href="#como-ajudar">Como ajudar</a></li>
+                    <li><a class="navigation-link" href="#sobre">Sobre o projeto</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main id="conteudo" class="page-content" tabindex="-1">
-        <section class="intro" aria-labelledby="titulo-principal">
+        <section id="inicio" class="intro section-anchor" aria-labelledby="titulo-principal">
             <p class="eyebrow">Campanhas de proteção animal</p>
             <h1 id="titulo-principal">Toda ajuda começa com informação clara.</h1>
             <p class="intro-copy">
@@ -29,7 +38,7 @@
             </p>
         </section>
 
-        <section class="campaigns" aria-labelledby="titulo-campanhas">
+        <section id="campanhas" class="campaigns section-anchor" aria-labelledby="titulo-campanhas">
             <div class="section-heading">
                 <div>
                     <p class="eyebrow">Encontre uma forma de ajudar</p>
@@ -52,6 +61,40 @@
             <noscript>
                 <p class="status-message">Ative o JavaScript para consultar as campanhas disponíveis.</p>
             </noscript>
+        </section>
+
+        <section id="como-ajudar" class="guidance section-anchor" aria-labelledby="titulo-como-ajudar">
+            <p class="eyebrow">Apoio com segurança</p>
+            <h2 id="titulo-como-ajudar">Como ajudar</h2>
+            <div class="guidance-grid">
+                <article class="guidance-card">
+                    <span class="guidance-step" aria-hidden="true">01</span>
+                    <h3>Escolha uma campanha</h3>
+                    <p>Consulte as necessidades divulgadas e escolha a causa que deseja apoiar.</p>
+                </article>
+                <article class="guidance-card">
+                    <span class="guidance-step" aria-hidden="true">02</span>
+                    <h3>Confira os detalhes</h3>
+                    <p>Leia as informações da instituição e confirme se a campanha continua ativa.</p>
+                </article>
+                <article class="guidance-card">
+                    <span class="guidance-step" aria-hidden="true">03</span>
+                    <h3>Use canais oficiais</h3>
+                    <p>Confirme os meios de contribuição diretamente com a instituição responsável.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="sobre" class="about section-anchor" aria-labelledby="titulo-sobre">
+            <div>
+                <p class="eyebrow">Sobre o projeto</p>
+                <h2 id="titulo-sobre">Informação clara aproxima quem quer ajudar.</h2>
+            </div>
+            <p>
+                O PetSolidário é um MVP acadêmico para reunir campanhas de proteção animal,
+                suas necessidades e formas oficiais de contato. A plataforma não processa
+                pagamentos; qualquer contribuição é feita diretamente com a instituição.
+            </p>
         </section>
     </main>
 
