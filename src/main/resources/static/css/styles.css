@@ -1,24 +1,24 @@
 :root {
     color-scheme: light;
     font-family: "DM Sans", Arial, sans-serif;
-    color: #193b30;
-    background: #fff8ed;
+    color: #173c2c;
+    background: #fbf3e4;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     /* Paleta baseada no mockup do Figma; tokens mantêm as cores consistentes. */
-    --brand: #245c45;
+    --brand: #286444;
     --green-deep: #174b39;
-    --green-soft: #e4f0e7;
-    --warm-surface: #fff1df;
-    --warm-border: #d2dfd2;
-    --text-muted: #435e52;
-    --orange: #a94716;
-    --orange-soft: #ffe0c4;
-    --mint: #087b60;
-    --mint-light: #d9f1e8;
-    --yellow: #ffe0a3;
-    --surface: #fffaf2;
-    --focus: #a94716;
+    --green-soft: #dcedd1;
+    --warm-surface: #fff0dc;
+    --warm-border: #c8d8bd;
+    --text-muted: #405b49;
+    --orange: #b84d23;
+    --orange-soft: #f5bb69;
+    --mint: #147b5d;
+    --mint-light: #e0f0df;
+    --yellow: #ffd27c;
+    --surface: #fffaf1;
+    --focus: #a3421d;
 }
 
 * {
@@ -29,7 +29,7 @@ body {
     min-width: 320px;
     margin: 0;
     line-height: 1.6;
-    background: #fff8ed;
+    background: #fbf3e4;
     font-size: 1.0625rem;
 }
 
@@ -165,12 +165,43 @@ summary:focus-visible {
 }
 
 .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(19rem, 0.95fr);
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
     max-width: none;
     margin-top: 2rem;
     padding: clamp(2rem, 6vw, 4.5rem);
-    border: 1px solid var(--warm-border);
-    border-radius: 2rem;
-    background: var(--green-soft);
+    border: 1px solid #e7d4ab;
+    border-radius: 1.35rem;
+    background: #f4d48d;
+}
+
+.intro-copy-block {
+    max-width: 42rem;
+}
+
+.intro-art {
+    display: grid;
+    min-height: 19rem;
+    margin: 0;
+    padding: 1.5rem;
+    place-items: center;
+    border-radius: 1rem;
+    background: #d6e9c9;
+}
+
+.intro-art img {
+    display: block;
+    width: min(100%, 25rem);
+    height: auto;
+}
+
+.intro-art figcaption {
+    margin-top: -0.25rem;
+    color: var(--green-deep);
+    font-size: 0.95rem;
+    font-weight: 700;
 }
 
 .eyebrow {
@@ -205,7 +236,7 @@ h1 {
 }
 
 .campaigns {
-    margin-top: 2rem;
+    margin-top: 1.75rem;
     padding: clamp(1.5rem, 4vw, 3rem);
     border: 1px solid var(--warm-border);
     border-radius: 2rem;
@@ -254,14 +285,14 @@ h1 {
 }
 
 .button {
-    min-height: 2.75rem;
-    padding: 0.55rem 1rem;
-    border: 2px solid var(--green-deep);
-    border-radius: 999px;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--green-deep);
+    border-radius: 0.65rem;
     color: #ffffff;
     background: var(--green-deep);
     font: inherit;
-    font-weight: 700;
+    font-weight: 650;
     cursor: pointer;
 }
 
@@ -279,16 +310,23 @@ h1 {
 }
 
 .campaign-card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
+    grid-template-areas:
+        "top top"
+        "title details"
+        "summary details";
+    align-content: start;
+    column-gap: 1.5rem;
     height: 100%;
-    padding: 1.125rem;
+    padding: 1.35rem;
     border: 1px solid var(--warm-border);
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     background: var(--green-soft);
 }
 
 .campaign-card-top {
+    grid-area: top;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -331,32 +369,51 @@ h1 {
 }
 
 .campaign-card h3 {
+    grid-area: title;
     margin: 0;
     font-size: 1.5rem;
     line-height: 1.3;
 }
 
 .campaign-summary {
+    grid-area: summary;
     margin: 0.7rem 0;
     color: var(--text-muted);
 }
 
 .campaign-card details {
-    margin-top: auto;
-    padding-top: 1rem;
+    grid-area: details;
+    align-self: stretch;
+    margin: 0;
+    padding: 0 0 0 1.25rem;
+    border-left: 1px solid #b8cfaf;
+}
+
+.campaign-list > li:nth-child(even) .campaign-card {
+    grid-template-areas:
+        "top top"
+        "details title"
+        "details summary";
+    background: #ffebc2;
+}
+
+.campaign-list > li:nth-child(even) .campaign-card details {
+    padding: 0 1.25rem 0 0;
+    border-right: 1px solid #e1c98f;
+    border-left: 0;
 }
 
 .campaign-card summary {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 2.5rem;
-    padding: 0.5rem 0.8rem;
-    border-radius: 999px;
-    color: #ffffff;
-    background: var(--green-deep);
-    font-size: 1.05rem;
-    font-weight: 700;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--brand);
+    border-radius: 0.6rem;
+    color: var(--green-deep);
+    background: #fffaf1;
+    font-size: 0.98rem;
+    font-weight: 650;
     cursor: pointer;
     list-style: none;
 }
@@ -388,7 +445,12 @@ h1 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 0.35rem 0.4rem;
+    min-height: 2.35rem;
+    margin: 0.35rem 0.2rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.6rem;
+    font-size: 0.98rem;
+    font-weight: 650;
     text-decoration: none;
 }
 
@@ -397,11 +459,11 @@ h1 {
 }
 
 .guidance {
-    margin-top: 2rem;
+    margin-top: 1.75rem;
     padding: clamp(1.5rem, 4vw, 3rem);
     border: 1px solid #efd3b5;
-    border-radius: 2rem;
-    background: var(--warm-surface);
+    border-radius: 1.25rem;
+    background: #f5d59b;
 }
 
 .guidance h2,
@@ -421,7 +483,7 @@ h1 {
 .guidance-card {
     padding: 1.25rem;
     border: 1px solid var(--warm-border);
-    border-radius: 1rem;
+    border-radius: 0.85rem;
     background: #fffaf2;
 }
 
@@ -454,7 +516,7 @@ h1 {
     align-items: center;
     margin-bottom: 4rem;
     padding: clamp(1.5rem, 4vw, 3rem);
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     color: #ffffff;
     background: var(--green-deep);
 }
@@ -532,13 +594,35 @@ h1 {
     }
 
     .intro {
+        grid-template-columns: 1fr;
         margin-top: 1rem;
         padding: 1.5rem;
-        border-radius: 1.5rem;
+        border-radius: 1rem;
+    }
+
+    .intro-art {
+        min-height: 15rem;
+        padding: 1rem;
+    }
+
+    .campaign-card,
+    .campaign-list > li:nth-child(even) .campaign-card {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "top" "title" "summary" "details";
+        row-gap: 0.35rem;
+    }
+
+    .campaign-card details,
+    .campaign-list > li:nth-child(even) .campaign-card details {
+        margin-top: 0.55rem;
+        padding: 0.85rem 0 0;
+        border-top: 1px solid var(--warm-border);
+        border-right: 0;
+        border-left: 0;
     }
 
     .campaigns,
     .guidance {
-        border-radius: 1.5rem;
+        border-radius: 1rem;
     }
 }
