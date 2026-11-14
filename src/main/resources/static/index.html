@@ -9,6 +9,7 @@
     <script src="/js/campanhas.js" defer></script>
 </head>
 <body>
+    <!-- O atalho aparece ao receber foco para facilitar a navegação por teclado. -->
     <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
     <header class="site-header">
@@ -17,6 +18,7 @@
                 <span class="brand-mark" aria-hidden="true">P</span>
                 <span>PetSolidário</span>
             </a>
+            <!-- Cada link aponta para uma seção abaixo; mantenha os IDs sincronizados. -->
             <nav class="primary-navigation" aria-label="Navegação principal">
                 <ul class="navigation-list">
                     <li><a class="navigation-link" href="#inicio">Início</a></li>
@@ -56,6 +58,7 @@
                 <button id="tentar-novamente" class="button" type="button">Tentar novamente</button>
             </div>
 
+            <!-- campanhas.js preenche esta lista com os dados retornados pela API. -->
             <ul id="lista-campanhas" class="campaign-list"></ul>
 
             <noscript>
@@ -63,6 +66,7 @@
             </noscript>
         </section>
 
+        <!-- As orientações reforçam que a contribuição ocorre diretamente com a instituição. -->
         <section id="como-ajudar" class="guidance section-anchor" aria-labelledby="titulo-como-ajudar">
             <p class="eyebrow">Apoio com segurança</p>
             <h2 id="titulo-como-ajudar">Como ajudar</h2>

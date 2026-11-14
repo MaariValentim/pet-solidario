@@ -5,6 +5,7 @@
     background: #fbfaf6;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
+    /* Tokens visuais centralizam a paleta para facilitar ajustes consistentes. */
     --green: #163b2e;
     --green-light: #e8f0eb;
     --text-muted: #4b5b52;
@@ -47,6 +48,7 @@ summary:focus-visible {
 }
 
 .skip-link:focus {
+    /* O link entra no fluxo da página para não cobrir a marca nem o menu. */
     position: relative;
     top: auto;
     left: auto;
@@ -58,6 +60,7 @@ summary:focus-visible {
 }
 
 .site-header {
+    /* O cabeçalho permanece acessível durante a navegação por âncoras. */
     position: sticky;
     z-index: 5;
     top: 0;
@@ -106,6 +109,7 @@ summary:focus-visible {
 }
 
 .section-anchor {
+    /* Evita que o cabeçalho fixo esconda o título da seção selecionada. */
     scroll-margin-top: 6rem;
 }
 
@@ -376,6 +380,7 @@ h1 {
 }
 
 @media (max-width: 40rem) {
+    /* Em telas estreitas, o menu quebra em linhas em vez de desaparecer. */
     .header-inner {
         flex-direction: column;
         align-items: flex-start;
