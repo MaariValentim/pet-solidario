@@ -15,7 +15,11 @@ test("apresenta detalhes e não tem violações axe no desktop", async ({ page }
     await page.screenshot({ path: "artifacts/pet-solidario-desktop.png", fullPage: true });
 
     const resultadoAxe = await new AxeBuilder({ page }).analyze();
-    expect(resultadoAxe.violations.map(({ id }) => id)).toEqual([]);
+    const problemasAxe = resultadoAxe.violations.map(({ id, nodes }) => ({
+        id,
+        elementos: nodes.map(({ target, failureSummary }) => ({ target, failureSummary })),
+    }));
+    expect(problemasAxe, JSON.stringify(problemasAxe, null, 2)).toEqual([]);
 });
 
 test("permite pular para o conteúdo e se adapta ao celular", async ({ page }) => {
@@ -33,5 +37,9 @@ test("permite pular para o conteúdo e se adapta ao celular", async ({ page }) =
     await page.screenshot({ path: "artifacts/pet-solidario-mobile.png", fullPage: true });
 
     const resultadoAxe = await new AxeBuilder({ page }).analyze();
-    expect(resultadoAxe.violations.map(({ id }) => id)).toEqual([]);
+    const problemasAxe = resultadoAxe.violations.map(({ id, nodes }) => ({
+        id,
+        elementos: nodes.map(({ target, failureSummary }) => ({ target, failureSummary })),
+    }));
+    expect(problemasAxe, JSON.stringify(problemasAxe, null, 2)).toEqual([]);
 });
