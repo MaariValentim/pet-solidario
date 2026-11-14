@@ -46,6 +46,8 @@ Na inicialização, o Flyway aplica as migrações SQL em `src/main/resources/db
 
 O GitHub Actions executa `mvn verify` em atualizações da branch principal, branches `feat/*` e Pull Requests para `main`. O workflow registra a cobertura de linhas no log e publica o relatório JaCoCo como artefato.
 
+O teste de interface usa Playwright e axe-core para verificar navegação por teclado, layout móvel e violações de acessibilidade. Ele também gera capturas de tela com uma campanha explicitamente fictícia. Para executar localmente, use `npm ci`, `npx playwright install chromium` e `npm run test:e2e`.
+
 ## Interface e acessibilidade
 
 A página inicial está em `src/main/resources/static/index.html` e consome a API de campanhas. Inclui navegação por teclado, foco visível, mensagens de estado acessíveis e layout responsivo. A relação com o ODS 10 e um roteiro de verificação manual estão em [`docs/acessibilidade-e-ods.md`](docs/acessibilidade-e-ods.md).

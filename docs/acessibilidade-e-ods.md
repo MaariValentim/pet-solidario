@@ -11,6 +11,8 @@
 
 Esses recursos são decisões de projeto voltadas à acessibilidade; não equivalem, por si só, a uma certificação de conformidade WCAG. Antes da entrega, valide a página manualmente e registre os resultados.
 
+Além da checagem automatizada com axe-core no GitHub Actions, a execução do Playwright gera capturas de desktop e celular no artefato `evidencias-interface`. Os dados exibidos nessas capturas são fictícios e servem apenas para demonstrar a interface.
+
 ## Verificação manual para evidência
 
 1. Abra a página em uma janela de desktop e em uma janela estreita, como a de um celular; confirme que não há rolagem horizontal.
