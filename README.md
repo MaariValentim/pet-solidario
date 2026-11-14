@@ -35,6 +35,7 @@ As credenciais padrão são apenas para desenvolvimento local. Não versione sen
 ## API de campanhas
 
 - `GET /api/campanhas`: consulta as campanhas abertas e retorna os dados em JSON.
+- `GET /api/campanhas/{id}`: consulta os detalhes de uma campanha aberta. Retorna `404` se ela não existir ou já estiver encerrada.
 
 Na inicialização, o Flyway aplica as migrações SQL em `src/main/resources/db/migration`. O Hibernate valida se o modelo Java corresponde à estrutura do banco.
 
