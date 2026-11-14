@@ -20,17 +20,16 @@ O MVP não processa pagamentos e não inclui aplicativo móvel, logística, cont
 
 ## Executar localmente
 
-1. Instale Java 21 e Maven.
-2. Crie um banco PostgreSQL chamado `pet_solidario`.
-3. Configure as variáveis de ambiente abaixo, se os valores locais forem diferentes:
+Requisitos: Java 21, Maven e Docker Desktop ou Colima.
 
-   - `DB_URL`: URL JDBC do PostgreSQL (padrão: `jdbc:postgresql://localhost:5432/pet_solidario`)
-   - `DB_USERNAME`: usuário do banco (padrão: `postgres`)
-   - `DB_PASSWORD`: senha do banco (padrão: `postgres`)
+1. Inicie o Docker Desktop. Se usa Colima no macOS, execute `colima start` após ligar o computador.
+2. Na pasta do projeto, inicie o banco: `docker compose up -d db`.
+3. Confirme que o banco está pronto: `docker compose ps` deve mostrar `healthy`.
+4. Inicie a aplicação: `mvn spring-boot:run`.
 
-4. Inicie a aplicação com `mvn spring-boot:run`.
+Abra `http://localhost:8080` no navegador. Para parar a aplicação, use `Ctrl+C`; para parar o banco sem apagar os dados, execute `docker compose down`.
 
-As credenciais padrão são apenas para desenvolvimento local. Não versione senhas ou credenciais reais.
+O Compose cria o banco `pet_solidario` com as credenciais locais padrão (`postgres`/`postgres`), alinhadas à configuração da aplicação. O banco fica restrito ao próprio computador e persiste em um volume Docker. Esses valores servem apenas para desenvolvimento local; nunca os use em produção. Para personalizá-los, defina `DB_NAME`, `DB_USERNAME` e `DB_PASSWORD` tanto para o Compose quanto para a aplicação.
 
 ## API de campanhas
 
