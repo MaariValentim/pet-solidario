@@ -1,0 +1,832 @@
+/* ==========================================================================
+   PetSolidário — redesenho da página de campanhas
+   Direção: fundo creme + marrom escuro (ação) + verde só para "status".
+   ========================================================================== */
+
+:root {
+    color-scheme: light;
+    font-family: "DM Sans", Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+
+    /* Base neutra (mockup Figma) */
+    --page: #fdf6ea;
+    --surface: #fffaf1;
+    --card: #f5f1ea;
+    --line: #ead9bb;
+
+    /* Texto */
+    --ink: #3f2810;
+    --text-muted: #6b5640;
+
+    /* Marca / ação principal */
+    --brand: #4b2e12;
+    --brand-hover: #35200c;
+
+    /* Verde: reservado para status e para a seção "Sobre" */
+    --green-deep: #1a5a41;
+    --green-soft: #cfe8c0;
+    --mint: #0d8057;
+    --mint-light: #c6e8c0;
+    --mint-ink: #0b5a3f;
+
+    /* Acentos quentes */
+    --yellow: #ffd27c;
+    --peach: #fbd9b8;
+    --sand: #f1e2c4;
+    --orange: #bf3d08;
+    --warm-surface: #fff0dc;
+
+    /* Laranja do gatinho e verde de apoio para os cartões */
+    --orange-card: #fcdcae;
+    --orange-card-line: #f2b973;
+    --green-card: #d9eecb;
+    --green-card-line: #aed49a;
+
+    --focus: #a3421d;
+    --radius-lg: 1.5rem;
+    --radius-md: 1rem;
+    --shadow-sm: 0 1px 2px rgba(75, 46, 18, 0.06);
+    --shadow-md: 0 10px 28px rgba(75, 46, 18, 0.12);
+
+    --font-display: "Josefin Slab", Georgia, "Times New Roman", serif;
+
+    color: var(--ink);
+    background: var(--page);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+    margin: 0;
+    line-height: 1.6;
+    background: var(--page);
+    font-size: 1.0625rem;
+}
+
+a {
+    color: var(--brand);
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+/* ---------- Acessibilidade: atalho de teclado ---------- */
+
+.skip-link {
+    position: absolute;
+    z-index: 10;
+    top: 0.75rem;
+    left: 50%;
+    padding: 0.7rem 1rem;
+    transform: translate(-50%, -180%);
+    border-radius: 0.4rem;
+    color: #ffffff;
+    background: var(--brand);
+}
+
+.skip-link:focus {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: block;
+    width: fit-content;
+    max-width: calc(100% - 1.5rem);
+    margin: 0.75rem auto;
+    transform: none;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.site-header {
+    position: sticky;
+    z-index: 5;
+    top: 0;
+    color: var(--brand);
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 250, 241, 0.94);
+    backdrop-filter: blur(8px);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: min(100% - 2.5rem, 82rem);
+    min-height: 5rem;
+    margin: 0 auto;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 0.7rem;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.brand-mark {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--brand);
+    font-family: "DM Sans", Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.primary-navigation {
+    max-width: 100%;
+}
+
+.navigation-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navigation-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    color: var(--brand);
+    font-size: 1rem;
+    font-weight: 650;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.navigation-link:hover {
+    background: var(--warm-surface);
+}
+
+/* Contador no mesmo vocabulário visual do status "Ativa" */
+.campaign-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    color: var(--mint-ink);
+    background: var(--mint-light);
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.campaign-count::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--mint);
+    content: "";
+}
+
+.section-anchor {
+    scroll-margin-top: 6rem;
+}
+
+/* ---------- Layout geral ---------- */
+
+.page-content {
+    width: min(100% - 2.5rem, 82rem);
+    margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+p {
+    overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--orange);
+    font-size: 0.85rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ---------- Ícones (emojis decorativos) ---------- */
+
+.icon {
+    display: inline-block;
+    margin-right: 0.4rem;
+    letter-spacing: 0;
+    transition: transform 0.2s ease;
+}
+
+.navigation-link:hover .icon,
+.guidance-card:hover h3 .icon {
+    transform: translateY(-2px) rotate(-10deg) scale(1.15);
+}
+
+.campaign-type .icon {
+    margin-right: 0;
+}
+
+/* ---------- Hero ---------- */
+
+.intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    margin-top: 2rem;
+    padding: clamp(2rem, 6vw, 4rem);
+    border: 1px solid var(--line);
+    border-radius: 2rem;
+    background: linear-gradient(135deg, #fff6e3 0%, #fdeccb 100%);
+}
+
+.intro-copy-block {
+    max-width: 42rem;
+}
+
+h1 {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+}
+
+.intro-copy {
+    max-width: 52ch;
+    margin: 1.25rem 0 0;
+    color: var(--text-muted);
+    font-size: 1.15rem;
+}
+
+/* Cartão da ilustração com as "bolhas" de cor do mockup */
+.intro-art {
+    display: grid;
+    min-height: 19rem;
+    margin: 0;
+    padding: 1.5rem;
+    place-items: center;
+    border-radius: 1.5rem;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(255, 210, 124, 0.75) 0 5rem, transparent 5.05rem),
+        radial-gradient(circle at 96% 98%, rgba(170, 218, 150, 0.95) 0 6rem, transparent 6.05rem),
+        #fffaf1;
+}
+
+.intro-art img {
+    display: block;
+    width: min(100%, 22rem);
+    height: auto;
+}
+
+.intro-art figcaption {
+    margin-top: -0.25rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* ---------- Seção de campanhas ---------- */
+
+.campaigns {
+    margin-top: 3.5rem;
+}
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.section-heading h2,
+.guidance h2,
+.about h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+    line-height: 1.1;
+}
+
+.section-copy {
+    max-width: 34ch;
+    margin: 0;
+    color: var(--text-muted);
+}
+
+.status-message,
+.error-message {
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--warm-surface);
+}
+
+.status-message {
+    color: var(--text-muted);
+}
+
+.error-message {
+    border-color: #9b3030;
+    color: #6d1e1e;
+    background: #fff4f0;
+}
+
+.error-message p {
+    margin-top: 0;
+}
+
+/* ---------- Botão genérico ---------- */
+
+.button {
+    min-height: 2.75rem;
+    padding: 0.55rem 1.1rem;
+    border: 1.5px solid var(--brand);
+    border-radius: 999px;
+    color: #ffffff;
+    background: var(--brand);
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background: var(--brand-hover);
+}
+
+/* ---------- Lista e cartões ---------- */
+
+.campaign-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.campaign-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.campaign-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.campaign-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.campaign-type,
+.campaign-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 1.9rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Categoria: cor quente que varia entre cartões (nunca verde, para não
+   ser confundida com o status). */
+.campaign-type {
+    min-width: 0;
+    max-width: 78%;
+    overflow-wrap: anywhere;
+    color: #59300d;
+    background: var(--yellow);
+}
+
+.campaign-list > li:nth-child(3n + 2) .campaign-type {
+    color: #6b2f12;
+    background: var(--peach);
+}
+
+.campaign-list > li:nth-child(3n + 3) .campaign-type {
+    color: #4b2e12;
+    background: var(--sand);
+}
+
+/* Status: único uso do verde dentro do cartão */
+.campaign-status {
+    flex: 0 0 auto;
+    color: var(--mint-ink);
+    background: var(--mint-light);
+}
+
+.campaign-status::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--mint);
+    content: "";
+}
+
+.campaign-card h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1.85rem;
+    line-height: 1.12;
+}
+
+.campaign-summary {
+    margin: 0 0 1.5rem;
+    color: var(--text-muted);
+}
+
+/* Cartão selecionado (detalhes abertos): creme com borda laranja */
+.campaign-card:has(details[open]) {
+    border-color: var(--orange-card-line);
+    background: #fff3d9;
+    box-shadow: var(--shadow-md);
+}
+
+/* ---------- Detalhes (abre/fecha) ---------- */
+
+.campaign-card details {
+    /* Empurra o botão para a base, alinhando os cartões da mesma linha */
+    margin: auto 0 0;
+}
+
+.campaign-card summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.6rem 1.1rem;
+    border: 1.5px solid var(--brand);
+    border-radius: 999px;
+    color: #ffffff;
+    background: var(--brand);
+    font-size: 1rem;
+    font-weight: 650;
+    text-align: center;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.campaign-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.campaign-card summary::after {
+    content: "+";
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.campaign-card summary:hover {
+    background: var(--brand-hover);
+}
+
+/* Aberto: o botão vira contorno e a ação principal passa a ser o link oficial */
+.campaign-card details[open] summary {
+    color: var(--brand);
+    background: transparent;
+}
+
+.campaign-card details[open] summary:hover {
+    background: var(--warm-surface);
+}
+
+.campaign-card details[open] summary::after {
+    content: "−";
+}
+
+.campaign-card details > p {
+    margin: 1rem 0 0;
+    color: var(--text-muted);
+}
+
+/* Bloco "Como contribuir" em destaque suave */
+.campaign-card details > p:last-of-type {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    color: var(--ink);
+    background: #ffffff;
+}
+
+.campaign-card details > p:last-of-type strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--orange);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Link de contribuição: navegação com aparência de botão */
+.contribution-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    min-height: 1rem;
+    margin: 0.3rem 0 0;
+    padding: 0.3rem 0.8rem;
+    border-color: var(--orange);
+    border-radius: 0.6rem;
+    color: #ffffff;
+    background: var(--orange);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.contribution-link::after {
+    content: "↗";
+}
+
+.contribution-link:hover {
+    background: #963006;
+}
+
+/* ---------- Como ajudar ---------- */
+
+.guidance {
+    margin-top: 3.5rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid var(--line);
+    border-radius: 2rem;
+    background: var(--warm-surface);
+}
+
+.guidance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+}
+
+.guidance-card {
+    padding: 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: #fffdf8;
+}
+
+.guidance-step {
+    display: inline-grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--brand);
+    background: var(--yellow);
+    font-size: 0.85rem;
+    font-weight: 750;
+}
+
+.guidance-card:nth-child(2) {
+    border-color: var(--orange-card-line);
+    background: var(--orange-card);
+}
+
+.guidance-card:nth-child(2) .guidance-step {
+    background: #fff7ea;
+}
+
+.guidance-card:nth-child(3) {
+    border-color: var(--green-card-line);
+    background: var(--green-card);
+}
+
+.guidance-card:nth-child(3) .guidance-step {
+    color: #ffffff;
+    background: var(--mint);
+}
+
+.guidance-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.guidance-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.guidance-card h3 {
+    margin: 0.9rem 0 0.35rem;
+    font-size: 1.4rem;
+}
+
+.guidance-card p {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+/* ---------- Sobre: dois cards laterais que se completam ---------- */
+
+.about {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+    margin: 3rem 0 4rem;
+}
+
+.about > div,
+.about > p {
+    margin: 0;
+    padding: clamp(1.4rem, 3vw, 2rem);
+    border: 1px solid var(--line);
+}
+
+/* Esquerda: título. Cantos externos bem redondos, internos mais suaves */
+.about > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: var(--orange-card-line);
+    border-radius: 1.75rem 0.75rem 0.75rem 1.75rem;
+    background: var(--orange-card);
+}
+
+.about .eyebrow {
+    color: #a8350a;
+}
+
+.about h2 {
+    max-width: 22ch;
+    font-size: clamp(1.55rem, 2.6vw, 2.05rem);
+    line-height: 1.15;
+}
+
+/* Direita: texto de apoio, em verde bem clarinho */
+.about > p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    border-color: var(--green-card-line);
+    border-radius: 0.75rem 1.75rem 1.75rem 0.75rem;
+    color: #3d5a3a;
+    background: var(--green-card);
+    font-size: 1rem;
+}
+
+.about > p::before {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--mint);
+    content: "♥";
+    font-size: 0.9rem;
+}
+
+/* ---------- Rodapé ---------- */
+
+.site-footer {
+    padding: 1.5rem max(1.25rem, calc((100vw - 82rem) / 2));
+    border-top: 1px solid var(--line);
+    color: var(--text-muted);
+    background: var(--warm-surface);
+    font-size: 1rem;
+}
+
+.site-footer p {
+    max-width: 68rem;
+    margin: 0 auto;
+}
+
+.site-footer p + p {
+    margin-top: 0.35rem;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ---------- Telas estreitas ---------- */
+
+@media (max-width: 40rem) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.55rem;
+        width: min(100% - 2rem, 68rem);
+        padding: 0.8rem 0;
+    }
+
+    .primary-navigation {
+        width: 100%;
+    }
+
+    .navigation-list {
+        gap: 0.15rem;
+    }
+
+    .navigation-link {
+        min-height: 2.5rem;
+        padding: 0.35rem 0.7rem;
+        font-size: 0.95rem;
+    }
+
+    .intro {
+        grid-template-columns: 1fr;
+        margin-top: 1rem;
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .intro-art {
+        min-height: 15rem;
+        padding: 1rem;
+    }
+
+    .campaigns,
+    .guidance,
+    .about {
+        margin-top: 2.5rem;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .guidance {
+        border-radius: 1.5rem;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about > div,
+    .about > p {
+        border-radius: 1.5rem;
+    }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+
+    .campaign-card:hover,
+    .guidance-card:hover,
+    .navigation-link:hover .icon,
+    .guidance-card:hover h3 .icon {
+        transform: none;
+    }
+}

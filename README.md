@@ -1,43 +1,63 @@
 # PetSolidário
 
-MVP web acadêmico para divulgar campanhas, necessidades e formas oficiais de contribuição de instituições de proteção animal. O projeto tem como referência a Associação Casa dos Gatos (CDG), de Araraquara/SP.
+MVP web acadêmico para reunir campanhas de proteção animal, explicar suas necessidades e direcionar pessoas interessadas aos canais oficiais de contribuição das instituições. O projeto toma como referência a Associação Casa dos Gatos (CDG), de Araraquara/SP.
 
-## Escopo do MVP
+## Problema e proposta
 
-- Consultar campanhas disponíveis.
-- Visualizar as necessidades de cada campanha.
-- Consultar formas oficiais de contato e contribuição da instituição.
+Informações sobre campanhas e formas de ajudar podem ficar dispersas entre diferentes canais. O PetSolidário organiza esses dados em uma página responsiva para facilitar a consulta. A plataforma não recebe nem processa pagamentos: qualquer contribuição é feita diretamente com a instituição, após a pessoa confirmar as informações nos canais oficiais.
 
-O MVP não processa pagamentos e não inclui aplicativo móvel, logística, controle de estoque ou gestão completa de ONG.
+## Funcionalidades implementadas
+
+- Lista campanhas abertas consultadas pela API.
+- Exibe instituição responsável, título, resumo e detalhes da campanha.
+- Apresenta o canal oficial informado para contribuição como link de ação.
+- Permite abrir e fechar detalhes usando mouse ou teclado.
+- Informa estados de carregamento, lista vazia e falha de comunicação, com opção de tentar novamente.
+- Inclui navegação por seções, atalho para pular ao conteúdo, foco visível e layout adaptável a dispositivos menores.
+- Inclui testes automatizados de backend e de interface, além de verificações de acessibilidade com axe-core.
+
+As duas campanhas incluídas pela migração V2, sobre ração e sachês, são **dados demonstrativos** para apresentar a interface. Elas não confirmam que a instituição esteja solicitando esses itens. Antes de contribuir, confirme a necessidade e os canais com a própria instituição.
 
 ## Tecnologias
 
-- Java 21
-- Spring Boot 3.5.16
+- Java 21 e Spring Boot 3.5.16
 - Maven
-- PostgreSQL
-- HTML5, CSS3, JavaScript e Bootstrap
+- Spring Web, Spring Data JPA e Bean Validation
+- PostgreSQL 17 e Flyway
+- HTML, CSS e JavaScript
+- JUnit, Testcontainers, JaCoCo, Playwright e axe-core
+- GitHub Actions para integração contínua
 
 ## Executar localmente
 
-1. Instale Java 21 e Maven.
-2. Crie um banco PostgreSQL chamado `pet_solidario`.
-3. Configure as variáveis de ambiente abaixo, se os valores locais forem diferentes:
+Requisitos: Java 21, Maven, Docker Desktop ou Colima e Node.js 24 para os testes de interface.
 
-   - `DB_URL`: URL JDBC do PostgreSQL (padrão: `jdbc:postgresql://localhost:5432/pet_solidario`)
-   - `DB_USERNAME`: usuário do banco (padrão: `postgres`)
-   - `DB_PASSWORD`: senha do banco (padrão: `postgres`)
+1. Inicie o Docker Desktop. No macOS com Colima, inicie-o antes de continuar.
+2. Na pasta do projeto, execute `docker compose up -d db`.
+3. Aguarde o estado `healthy`, conferindo com `docker compose ps`.
+4. Em outro terminal, execute `mvn spring-boot:run`.
+5. Abra `http://localhost:8080` no navegador.
 
-4. Inicie a aplicação com `mvn spring-boot:run`.
+O Flyway cria a estrutura do banco e insere os registros demonstrativos nas primeiras inicializações. O Compose usa credenciais locais padrão (`postgres`/`postgres`) e mantém os dados em um volume Docker. Essas credenciais são apenas para desenvolvimento local; em outro ambiente, configure `DB_URL`, `DB_USERNAME` e `DB_PASSWORD` com valores próprios.
 
-As credenciais padrão são apenas para desenvolvimento local. Não versione senhas ou credenciais reais.
+Para encerrar a aplicação, use `Ctrl+C`. Para parar o banco preservando os dados, execute `docker compose down`.
 
-## API de campanhas
+## API
 
-- `GET /api/campanhas`: consulta as campanhas abertas e retorna os dados em JSON.
+- `GET /api/campanhas`: retorna campanhas abertas em JSON.
+- `GET /api/campanhas/{id}`: retorna uma campanha aberta; responde `404` quando não existe ou está encerrada.
 
-Na inicialização, o Flyway aplica as migrações SQL em `src/main/resources/db/migration`. O Hibernate valida se o modelo Java corresponde à estrutura do banco.
+## Testes, cobertura e integração contínua
 
-## Estrutura inicial
+- `mvn test` executa testes unitários e de integração. Os testes de integração iniciam um PostgreSQL temporário com Testcontainers; Docker precisa estar disponível.
+- `mvn verify` executa os testes, gera o relatório JaCoCo em `target/site/jacoco/` e verifica o limite mínimo de 70% de cobertura de linhas.
+- Para testar a interface, instale as dependências com `npm ci`, instale o navegador de teste com `npx playwright install chromium` e execute `npm run test:e2e`.
+- O GitHub Actions executa a verificação Java e os testes de interface em envios à `main`, às branches `feat/*` e em Pull Requests para `main`. Os relatórios e capturas gerados são disponibilizados como artefatos da execução.
 
-O código Java fica em `src/main/java/br/com/petsolidario` e as configurações em `src/main/resources`. As funcionalidades serão adicionadas em etapas, mantendo o escopo do MVP.
+## Acessibilidade e ODS
+
+A interface inclui idioma declarado em português brasileiro, elementos semânticos, navegação por teclado, foco visível, estados anunciados por tecnologias assistivas e layout responsivo. O documento [`docs/acessibilidade-e-ods.md`](docs/acessibilidade-e-ods.md) descreve esses recursos, sua relação pretendida com o ODS 10 e um roteiro de verificação manual. As verificações automatizadas apoiam a análise, mas não representam certificação de conformidade.
+
+## Estado da publicação
+
+O projeto pode ser executado localmente e o código está disponível no GitHub. Um endereço público hospedado ainda não foi configurado.

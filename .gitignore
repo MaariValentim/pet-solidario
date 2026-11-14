@@ -23,3 +23,11 @@ target/
 .env.*
 !.env.example
 application-local.properties
+
+# Node.js e evidências locais de interface
+node_modules/
+.npm-cache/
+.cache/
+playwright-report/
+test-results/
+artifacts/

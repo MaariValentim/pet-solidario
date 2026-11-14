@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff8ed">
+    <title>PetSolidário — campanhas de proteção animal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Josefin+Slab:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/campanhas.js" defer></script>
+</head>
+<body>
+    <!-- O atalho aparece ao receber foco para facilitar a navegação por teclado. -->
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="#inicio">
+                <span class="brand-mark" aria-hidden="true">P</span>
+                <span>PetSolidário</span>
+            </a>
+            <!-- Cada link aponta para uma seção abaixo; mantenha os IDs sincronizados. -->
+            <nav class="primary-navigation" aria-label="Navegação principal">
+                <ul class="navigation-list">
+                    <li><a class="navigation-link" href="#inicio"><span class="icon" aria-hidden="true">🏠</span>Início</a></li>
+                    <li><a class="navigation-link" href="#campanhas"><span class="icon" aria-hidden="true">💛</span>Campanhas</a></li>
+                    <li><a class="navigation-link" href="#como-ajudar"><span class="icon" aria-hidden="true">🤝</span>Como ajudar</a></li>
+                    <li><a class="navigation-link" href="#sobre"><span class="icon" aria-hidden="true">🐾</span>Sobre o projeto</a></li>
+                </ul>
+            </nav>
+            <p class="campaign-count" aria-live="polite"><span id="total-campanhas">Contando campanhas...</span></p>
+        </div>
+    </header>
+
+    <main id="conteudo" class="page-content" tabindex="-1">
+        <section id="inicio" class="intro section-anchor" aria-labelledby="titulo-principal">
+            <div class="intro-copy-block">
+                <p class="eyebrow"><span class="icon" aria-hidden="true">🐾</span>Campanhas de proteção animal</p>
+                <h1 id="titulo-principal">Toda ajuda começa com informação clara.</h1>
+                <p class="intro-copy">
+                    Consulte as necessidades divulgadas pelas instituições e veja como contribuir
+                    pelos canais oficiais de cada campanha.
+                </p>
+            </div>
+            <figure class="intro-art">
+                <img src="/images/gatinho.svg" alt="" width="400" height="360">
+                <figcaption>Pequenos gestos fazem diferença.</figcaption>
+            </figure>
+        </section>
+
+        <section id="campanhas" class="campaigns section-anchor" aria-labelledby="titulo-campanhas">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow"><span class="icon" aria-hidden="true">💛</span>Encontre uma forma de ajudar</p>
+                    <h2 id="titulo-campanhas">Campanhas abertas</h2>
+                </div>
+                <p class="section-copy">As campanhas encerradas não aparecem nesta lista.</p>
+            </div>
+
+            <p id="estado-carregamento" class="status-message" role="status" aria-live="polite" aria-atomic="true">
+                Carregando campanhas...
+            </p>
+
+            <div id="estado-erro" class="error-message" role="alert" hidden>
+                <p>Não foi possível carregar as campanhas agora.</p>
+                <button id="tentar-novamente" class="button" type="button">Tentar novamente</button>
+            </div>
+
+            <!-- campanhas.js preenche esta lista com os dados retornados pela API. -->
+            <ul id="lista-campanhas" class="campaign-list"></ul>
+
+            <noscript>
+                <p class="status-message">Ative o JavaScript para consultar as campanhas disponíveis.</p>
+            </noscript>
+        </section>
+
+        <!-- As orientações reforçam que a contribuição ocorre diretamente com a instituição. -->
+        <section id="como-ajudar" class="guidance section-anchor" aria-labelledby="titulo-como-ajudar">
+            <p class="eyebrow"><span class="icon" aria-hidden="true">🛡️</span>Apoio com segurança</p>
+            <h2 id="titulo-como-ajudar">Como ajudar</h2>
+            <div class="guidance-grid">
+                <article class="guidance-card">
+                    <span class="guidance-step" aria-hidden="true">01</span>
+                    <h3><span class="icon" aria-hidden="true">🔎</span>Escolha uma campanha</h3>
+                    <p>Consulte as necessidades divulgadas e escolha a causa que deseja apoiar.</p>
+                </article>
+                <article class="guidance-card">
+                    <span class="guidance-step" aria-hidden="true">02</span>
+                    <h3><span class="icon" aria-hidden="true">📋</span>Confira os detalhes</h3>
+                    <p>Leia as informações da instituição e confirme se a campanha continua ativa.</p>
+                </article>
+                <article class="guidance-card">
+                    <span class="guidance-step" aria-hidden="true">03</span>
+                    <h3><span class="icon" aria-hidden="true">✅</span>Use canais oficiais</h3>
+                    <p>Confirme os meios de contribuição diretamente com a instituição responsável.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="sobre" class="about section-anchor" aria-labelledby="titulo-sobre">
+            <div>
+                <p class="eyebrow"><span class="icon" aria-hidden="true">🐱</span>Sobre o projeto</p>
+                <h2 id="titulo-sobre">Informação clara aproxima quem quer ajudar.</h2>
+            </div>
+            <p>
+                O PetSolidário é um MVP acadêmico para reunir campanhas de proteção animal,
+                suas necessidades e formas oficiais de contato. A plataforma não processa
+                pagamentos; qualquer contribuição é feita diretamente com a instituição.
+            </p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p><span class="icon" aria-hidden="true">🔒</span>Antes de contribuir, confirme as informações e os canais de doação diretamente com a instituição.</p>
+        <p><span class="icon" aria-hidden="true">🐾</span>PetSolidário é um MVP acadêmico desenvolvido para facilitar o acesso às campanhas.</p>
+    </footer>
+</body>
+</html>
