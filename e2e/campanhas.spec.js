@@ -19,6 +19,7 @@ test("apresenta detalhes e não tem violações axe no desktop", async ({ page }
     await expect(page.getByRole("heading", {
         name: "Campanha de demonstração (dados fictícios)",
     })).toBeVisible();
+    await expect(page.getByText("1 campanha ativa")).toBeVisible();
 
     await page.getByText("Ver detalhes e como contribuir", { exact: true }).click();
     await expect(page.getByText("Não realize doações. Este texto é apenas um dado de teste.")).toBeVisible();

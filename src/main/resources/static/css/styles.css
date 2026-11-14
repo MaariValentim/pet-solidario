@@ -1,15 +1,18 @@
 :root {
     color-scheme: light;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: #202b25;
-    background: #fbfaf6;
+    font-family: "Josefin Slab", Georgia, serif;
+    color: #553711;
+    background: #ffffff;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
-    /* Tokens visuais centralizam a paleta para facilitar ajustes consistentes. */
-    --green: #163b2e;
-    --green-light: #e8f0eb;
-    --text-muted: #4b5b52;
-    --border: #cbd5ce;
+    /* Paleta baseada no mockup do Figma; tokens mantêm as cores consistentes. */
+    --brand: #553711;
+    --warm-surface: #fdf5e9;
+    --warm-border: #eadcc7;
+    --text-muted: #79664e;
+    --mint: #1faf8e;
+    --mint-light: #d9f1e8;
+    --yellow: #fcda96;
     --surface: #ffffff;
     --focus: #9a4a00;
 }
@@ -22,10 +25,11 @@ body {
     min-width: 320px;
     margin: 0;
     line-height: 1.6;
+    background: #ffffff;
 }
 
 a {
-    color: var(--green);
+    color: var(--brand);
 }
 
 a:focus-visible,
@@ -44,7 +48,7 @@ summary:focus-visible {
     transform: translate(-50%, -180%);
     border-radius: 0.4rem;
     color: #ffffff;
-    background: var(--green);
+    background: var(--brand);
 }
 
 .skip-link:focus {
@@ -64,8 +68,9 @@ summary:focus-visible {
     position: sticky;
     z-index: 5;
     top: 0;
-    color: #ffffff;
-    background: var(--green);
+    color: var(--brand);
+    border-bottom: 1px solid var(--warm-border);
+    background: var(--surface);
 }
 
 .header-inner {
@@ -88,24 +93,28 @@ summary:focus-visible {
     list-style: none;
 }
 
+.primary-navigation {
+    max-width: 100%;
+}
+
 .navigation-link {
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
     padding: 0.45rem 0.8rem;
     border-radius: 0.5rem;
-    color: #ffffff;
+    color: var(--brand);
     font-size: 0.95rem;
     font-weight: 650;
     text-decoration: none;
 }
 
 .navigation-link:hover {
-    background: rgb(255 255 255 / 12%);
+    background: var(--warm-surface);
 }
 
 .navigation-link:focus-visible {
-    outline-color: #ffffff;
+    outline-color: var(--focus);
 }
 
 .section-anchor {
@@ -126,11 +135,23 @@ summary:focus-visible {
 
 .brand-mark {
     display: grid;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
     place-items: center;
-    border: 1px solid #ffffff;
-    border-radius: 50%;
+    border-radius: 1.375rem;
+    color: #ffffff;
+    background: var(--brand);
+}
+
+.campaign-count {
+    margin: 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    color: var(--brand);
+    background: var(--warm-surface);
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .page-content {
@@ -145,7 +166,7 @@ summary:focus-visible {
 
 .eyebrow {
     margin: 0 0 0.5rem;
-    color: var(--green);
+    color: var(--brand);
     font-size: 0.8rem;
     font-weight: 750;
     letter-spacing: 0.08em;
@@ -176,7 +197,7 @@ h1 {
 
 .campaigns {
     padding: 2rem 0 4rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--warm-border);
 }
 
 .section-heading {
@@ -202,9 +223,9 @@ h1 {
 .status-message,
 .error-message {
     padding: 1rem 1.2rem;
-    border: 1px solid var(--border);
-    border-radius: 0.65rem;
-    background: var(--surface);
+    border: 1px solid var(--warm-border);
+    border-radius: 1rem;
+    background: var(--warm-surface);
 }
 
 .status-message {
@@ -223,17 +244,17 @@ h1 {
 .button {
     min-height: 2.75rem;
     padding: 0.55rem 1rem;
-    border: 2px solid var(--green);
-    border-radius: 0.4rem;
+    border: 2px solid var(--brand);
+    border-radius: 999px;
     color: #ffffff;
-    background: var(--green);
+    background: var(--brand);
     font: inherit;
     font-weight: 700;
     cursor: pointer;
 }
 
 .button:hover {
-    background: #0e2d22;
+    background: #3f280d;
 }
 
 .campaign-list {
@@ -246,34 +267,99 @@ h1 {
 }
 
 .campaign-card {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    padding: 1.25rem;
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    background: var(--surface);
+    padding: 1.125rem;
+    border: 1px solid var(--warm-border);
+    border-radius: 1.5rem;
+    background: var(--warm-surface);
+}
+
+.campaign-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.campaign-type,
+.campaign-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 1.7rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.campaign-type {
+    min-width: 0;
+    max-width: 70%;
+    overflow-wrap: anywhere;
+    color: var(--brand);
+    background: var(--yellow);
+}
+
+.campaign-status {
+    color: #12614d;
+    background: var(--mint-light);
+}
+
+.campaign-status::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--mint);
+    content: "";
 }
 
 .campaign-card h3 {
     margin: 0;
-    font-size: 1.3rem;
+    font-size: 1.28rem;
     line-height: 1.3;
 }
 
 .campaign-summary {
-    margin: 0.75rem 0;
+    margin: 0.7rem 0;
     color: var(--text-muted);
 }
 
 .campaign-card details {
-    margin-top: 1rem;
-    border-top: 1px solid var(--border);
-    padding-top: 0.8rem;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .campaign-card summary {
-    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    color: #ffffff;
+    background: var(--brand);
     font-weight: 700;
     cursor: pointer;
+    list-style: none;
+}
+
+.campaign-card summary::-webkit-details-marker {
+    display: none;
+}
+
+.campaign-card summary::after {
+    margin-left: 0.5rem;
+    content: "+";
+    font-size: 1.15rem;
+}
+
+.campaign-card details[open] summary::after {
+    content: "−";
 }
 
 .campaign-card details p {
@@ -284,9 +370,13 @@ h1 {
     margin-top: 0.75rem;
 }
 
+.campaign-card details[open] summary {
+    margin-bottom: 0.8rem;
+}
+
 .guidance {
     padding: 3rem 0 4rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--warm-border);
 }
 
 .guidance h2,
@@ -305,9 +395,9 @@ h1 {
 
 .guidance-card {
     padding: 1.25rem;
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    background: var(--surface);
+    border: 1px solid var(--warm-border);
+    border-radius: 1rem;
+    background: var(--warm-surface);
 }
 
 .guidance-step {
@@ -316,8 +406,8 @@ h1 {
     height: 2rem;
     place-items: center;
     border-radius: 50%;
-    color: var(--green);
-    background: var(--green-light);
+    color: var(--brand);
+    background: var(--yellow);
     font-size: 0.8rem;
     font-weight: 750;
 }
@@ -341,7 +431,7 @@ h1 {
     padding: clamp(1.5rem, 4vw, 3rem);
     border-radius: 1rem;
     color: #ffffff;
-    background: var(--green);
+    background: var(--brand);
 }
 
 .about .eyebrow {
@@ -360,9 +450,9 @@ h1 {
 
 .site-footer {
     padding: 1.5rem max(1.25rem, calc((100vw - 68rem) / 2));
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--warm-border);
     color: var(--text-muted);
-    background: #f1f3ef;
+    background: var(--warm-surface);
     font-size: 0.9rem;
 }
 
@@ -392,6 +482,10 @@ h1 {
 
     .navigation-list {
         gap: 0.15rem;
+    }
+
+    .primary-navigation {
+        width: 100%;
     }
 
     .navigation-link {
