@@ -39,6 +39,17 @@ As credenciais padrão são apenas para desenvolvimento local. Não versione sen
 
 Na inicialização, o Flyway aplica as migrações SQL em `src/main/resources/db/migration`. O Hibernate valida se o modelo Java corresponde à estrutura do banco.
 
+## Testes, cobertura e integração contínua
+
+- `mvn test`: executa os testes unitários e de integração. Os testes de integração usam Testcontainers para iniciar um PostgreSQL temporário; Docker precisa estar disponível.
+- `mvn verify`: executa os testes, gera o relatório JaCoCo em `target/site/jacoco/` e falha se a cobertura de linhas ficar abaixo de 70%.
+
+O GitHub Actions executa `mvn verify` em atualizações da branch principal, branches `feat/*` e Pull Requests para `main`. O workflow registra a cobertura de linhas no log e publica o relatório JaCoCo como artefato.
+
+## Interface e acessibilidade
+
+A página inicial está em `src/main/resources/static/index.html` e consome a API de campanhas. Inclui navegação por teclado, foco visível, mensagens de estado acessíveis e layout responsivo. A relação com o ODS 10 e um roteiro de verificação manual estão em [`docs/acessibilidade-e-ods.md`](docs/acessibilidade-e-ods.md).
+
 ## Estrutura inicial
 
 O código Java fica em `src/main/java/br/com/petsolidario` e as configurações em `src/main/resources`. As funcionalidades serão adicionadas em etapas, mantendo o escopo do MVP.
