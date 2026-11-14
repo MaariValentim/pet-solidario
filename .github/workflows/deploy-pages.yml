@@ -1,0 +1,45 @@
+name: Publicar interface no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v6
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar arquivos estáticos
+        env:
+          API_ORIGIN: ${{ vars.PET_SOLIDARIO_API_ORIGIN }}
+        run: |
+          mkdir -p _site
+          cp -R src/main/resources/static/. _site/
+          printf 'window.PET_SOLIDARIO_API_BASE_URL = "%s";\n' "$API_ORIGIN" > _site/js/api-config.js
+
+      - name: Carregar artefato do site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Publicar site
+        id: deployment
+        uses: actions/deploy-pages@v4
