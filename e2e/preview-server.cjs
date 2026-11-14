@@ -14,7 +14,7 @@ const campanhaDemonstrativa = [{
     resumo: "Exemplo usado apenas para verificar a apresentação da interface.",
     descricao: "Esta campanha é fictícia e existe somente para os testes visuais.",
     instituicao: "Instituição fictícia de demonstração",
-    comoContribuir: "Não realize doações. Este texto é apenas um dado de teste.",
+    comoContribuir: "Acesse https://example.com/ para ver o canal fictício. Não realize doações; endereço ilustrativo para testes.",
     status: "ABERTA",
 }];
 

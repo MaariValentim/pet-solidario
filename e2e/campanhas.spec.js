@@ -22,7 +22,11 @@ test("apresenta detalhes e não tem violações axe no desktop", async ({ page }
     await expect(page.getByText("1 campanha ativa")).toBeVisible();
 
     await page.getByText("Ver detalhes e como contribuir", { exact: true }).click();
-    await expect(page.getByText("Não realize doações. Este texto é apenas um dado de teste.")).toBeVisible();
+    await expect(page.getByText(/Não realize doações; endereço ilustrativo para testes\./)).toBeVisible();
+    const botaoCanal = page.getByRole("link", { name: "Acessar canal oficial de contribuição (abre em nova aba)" });
+    await expect(botaoCanal).toBeVisible();
+    await expect(botaoCanal).toHaveAttribute("href", "https://example.com/");
+    await expect(botaoCanal).toHaveAttribute("rel", "noopener noreferrer");
     await page.screenshot({ path: "artifacts/pet-solidario-desktop.png", fullPage: true });
 
     const resultadoAxe = await new AxeBuilder({ page }).analyze();

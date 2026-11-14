@@ -12,7 +12,41 @@ function adicionarTexto(container, label, value) {
     const paragrafo = document.createElement("p");
     const rotulo = document.createElement("strong");
     rotulo.textContent = `${label}: `;
-    paragrafo.append(rotulo, document.createTextNode(value ?? ""));
+    const texto = value ?? "";
+    const endereco = texto.match(/https?:\/\/[^\s<>"']+/i)?.[0];
+    paragrafo.append(rotulo);
+
+    if (!endereco) {
+        paragrafo.append(document.createTextNode(texto));
+        container.append(paragrafo);
+        return;
+    }
+
+    let url;
+    try {
+        url = new URL(endereco);
+    } catch {
+        paragrafo.append(document.createTextNode(texto));
+        container.append(paragrafo);
+        return;
+    }
+
+    if (!["https:", "http:"].includes(url.protocol)) {
+        paragrafo.append(document.createTextNode(texto));
+        container.append(paragrafo);
+        return;
+    }
+
+    const inicio = texto.indexOf(endereco);
+    const link = document.createElement("a");
+    link.className = "button contribution-link";
+    link.href = url.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Acessar canal oficial";
+    link.setAttribute("aria-label", "Acessar canal oficial de contribuição (abre em nova aba)");
+    paragrafo.append(document.createTextNode(texto.slice(0, inicio)), link,
+        document.createTextNode(texto.slice(inicio + endereco.length)));
     container.append(paragrafo);
 }
 
