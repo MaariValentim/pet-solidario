@@ -3,6 +3,7 @@ const estadoCarregamento = document.querySelector("#estado-carregamento");
 const estadoErro = document.querySelector("#estado-erro");
 const botaoTentarNovamente = document.querySelector("#tentar-novamente");
 const totalCampanhas = document.querySelector("#total-campanhas");
+const apiBaseUrl = (window.PET_SOLIDARIO_API_BASE_URL || "").replace(/\/$/, "");
 
 function atualizarContagemCampanhas(total) {
     totalCampanhas.textContent = `${total} ${total === 1 ? "campanha ativa" : "campanhas ativas"}`;
@@ -116,7 +117,7 @@ async function carregarCampanhas() {
     listaCampanhas.replaceChildren();
 
     try {
-        const resposta = await fetch("/api/campanhas", {
+        const resposta = await fetch(`${apiBaseUrl}/api/campanhas`, {
             headers: { Accept: "application/json" },
         });
 

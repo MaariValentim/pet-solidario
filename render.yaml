@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: pet-solidario-api
+    runtime: docker
+    region: ohio
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/campanhas
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: DB_HOST
+        fromDatabase:
+          name: pet-solidario-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: pet-solidario-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: pet-solidario-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: pet-solidario-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: pet-solidario-db
+          property: password
+databases:
+  - name: pet-solidario-db
+    region: ohio
+    plan: free
+    postgresMajorVersion: "17"
+    databaseName: pet_solidario
+    user: pet_solidario
+    ipAllowList: []

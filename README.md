@@ -58,6 +58,13 @@ Para encerrar a aplicação, use `Ctrl+C`. Para parar o banco preservando os dad
 
 A interface inclui idioma declarado em português brasileiro, elementos semânticos, navegação por teclado, foco visível, estados anunciados por tecnologias assistivas e layout responsivo. O documento [`docs/acessibilidade-e-ods.md`](docs/acessibilidade-e-ods.md) descreve esses recursos, sua relação pretendida com o ODS 10 e um roteiro de verificação manual. As verificações automatizadas apoiam a análise, mas não representam certificação de conformidade.
 
-## Estado da publicação
+## Publicação
 
-O projeto pode ser executado localmente e o código está disponível no GitHub. Um endereço público hospedado ainda não foi configurado.
+A publicação está preparada em duas partes, porque o GitHub Pages hospeda arquivos estáticos, mas não executa a API Java nem o PostgreSQL:
+
+- A interface pode ser publicada pelo workflow `.github/workflows/deploy-pages.yml` no GitHub Pages.
+- A API Spring Boot e o PostgreSQL podem ser criados no Render a partir de `render.yaml` e `Dockerfile`.
+- Depois que a API estiver no ar, configure a variável de repositório `PET_SOLIDARIO_API_ORIGIN` em **Settings → Secrets and variables → Actions → Variables** com a origem do serviço (por exemplo, `https://pet-solidario-api.onrender.com`, sem `/api`). Em seguida, execute novamente o workflow **Publicar interface no GitHub Pages**.
+- Em **Settings → Pages**, selecione **GitHub Actions** como origem da publicação.
+
+O endereço público da interface só fica ativo após concluir essas etapas e o workflow terminar com sucesso. O plano gratuito do Render pode suspender o serviço web quando fica sem tráfego e o banco PostgreSQL gratuito expira após 30 dias; consulte as limitações atuais do provedor antes de depender da disponibilidade por longo prazo.
