@@ -8,10 +8,31 @@ function atualizarContagemCampanhas(total) {
     totalCampanhas.textContent = `${total} ${total === 1 ? "campanha ativa" : "campanhas ativas"}`;
 }
 
+function criarIcone(emoji) {
+    const icone = document.createElement("span");
+    icone.className = "icon";
+    icone.setAttribute("aria-hidden", "true");
+    icone.textContent = emoji;
+    return icone;
+}
+
+// Escolhe um emoji pelo tema da campanha; usa a patinha quando não reconhece.
+function iconeDaCampanha(campanha) {
+    const tema = `${campanha.instituicao ?? ""} ${campanha.titulo ?? ""} ${campanha.resumo ?? ""}`.toLowerCase();
+    const temas = [
+        [/aliment|ração|racao|comida|sachê|sache/, "🍽️"],
+        [/higiene|limpeza/, "🧼"],
+        [/conforto|cama|manta|abrigo/, "🛏️"],
+        [/veterin|saúde|saude|remédio|remedio|vacina|castra/, "🩺"],
+        [/brinqued/, "🧶"],
+    ];
+    return temas.find(([regra]) => regra.test(tema))?.[1] ?? "🐾";
+}
+
 function adicionarTexto(container, label, value) {
     const paragrafo = document.createElement("p");
     const rotulo = document.createElement("strong");
-    rotulo.textContent = `${label}: `;
+    rotulo.append(criarIcone("💛"), document.createTextNode(`${label}: `));
     const texto = value ?? "";
     const endereco = texto.match(/https?:\/\/[^\s<>"']+/i)?.[0];
     paragrafo.append(rotulo);
@@ -65,7 +86,12 @@ function criarCartao(campanha) {
     cartao.className = "campaign-card";
     cabecalho.className = "campaign-card-top";
     instituicao.className = "campaign-type";
-    instituicao.textContent = campanha.instituicao;
+    const nomeInstituicao = campanha.instituicao || "Instituição não informada";
+    instituicao.setAttribute("aria-label", `Instituição da campanha: ${nomeInstituicao}`);
+    instituicao.append(
+        criarIcone(iconeDaCampanha(campanha)),
+        document.createTextNode(`Instituição: ${nomeInstituicao}`),
+    );
     status.className = "campaign-status";
     status.textContent = "Ativa";
     titulo.textContent = campanha.titulo;

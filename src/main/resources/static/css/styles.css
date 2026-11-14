@@ -1,24 +1,58 @@
+/* ==========================================================================
+   PetSolidário — redesenho da página de campanhas
+   Direção: fundo creme + marrom escuro (ação) + verde só para "status".
+   ========================================================================== */
+
 :root {
     color-scheme: light;
     font-family: "DM Sans", Arial, sans-serif;
-    color: #173c2c;
-    background: #fbf3e4;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
-    /* Paleta baseada no mockup do Figma; tokens mantêm as cores consistentes. */
-    --brand: #286444;
-    --green-deep: #174b39;
-    --green-soft: #dcedd1;
-    --warm-surface: #fff0dc;
-    --warm-border: #c8d8bd;
-    --text-muted: #405b49;
-    --orange: #8e3719;
-    --orange-soft: #f5bb69;
-    --mint: #147b5d;
-    --mint-light: #e0f0df;
-    --yellow: #ffd27c;
+
+    /* Base neutra (mockup Figma) */
+    --page: #fdf6ea;
     --surface: #fffaf1;
+    --card: #f5f1ea;
+    --line: #ead9bb;
+
+    /* Texto */
+    --ink: #3f2810;
+    --text-muted: #6b5640;
+
+    /* Marca / ação principal */
+    --brand: #4b2e12;
+    --brand-hover: #35200c;
+
+    /* Verde: reservado para status e para a seção "Sobre" */
+    --green-deep: #1a5a41;
+    --green-soft: #cfe8c0;
+    --mint: #0f8a5f;
+    --mint-light: #c6e8c0;
+    --mint-ink: #0b5a3f;
+
+    /* Acentos quentes */
+    --yellow: #ffd27c;
+    --peach: #fbd9b8;
+    --sand: #f1e2c4;
+    --orange: #bf3d08;
+    --warm-surface: #fff0dc;
+
+    /* Laranja do gatinho e verde de apoio para os cartões */
+    --orange-card: #fcdcae;
+    --orange-card-line: #f2b973;
+    --green-card: #d9eecb;
+    --green-card-line: #aed49a;
+
     --focus: #a3421d;
+    --radius-lg: 1.5rem;
+    --radius-md: 1rem;
+    --shadow-sm: 0 1px 2px rgba(75, 46, 18, 0.06);
+    --shadow-md: 0 10px 28px rgba(75, 46, 18, 0.12);
+
+    --font-display: "Josefin Slab", Georgia, "Times New Roman", serif;
+
+    color: var(--ink);
+    background: var(--page);
 }
 
 * {
@@ -29,7 +63,7 @@ body {
     min-width: 320px;
     margin: 0;
     line-height: 1.6;
-    background: #fbf3e4;
+    background: var(--page);
     font-size: 1.0625rem;
 }
 
@@ -44,6 +78,8 @@ summary:focus-visible {
     outline-offset: 3px;
 }
 
+/* ---------- Acessibilidade: atalho de teclado ---------- */
+
 .skip-link {
     position: absolute;
     z-index: 10;
@@ -57,7 +93,6 @@ summary:focus-visible {
 }
 
 .skip-link:focus {
-    /* O link entra no fluxo da página para não cobrir a marca nem o menu. */
     position: relative;
     top: auto;
     left: auto;
@@ -68,14 +103,16 @@ summary:focus-visible {
     transform: none;
 }
 
+/* ---------- Cabeçalho ---------- */
+
 .site-header {
-    /* O cabeçalho permanece acessível durante a navegação por âncoras. */
     position: sticky;
     z-index: 5;
     top: 0;
     color: var(--brand);
-    border-bottom: 1px solid var(--warm-border);
-    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 250, 241, 0.94);
+    backdrop-filter: blur(8px);
 }
 
 .header-inner {
@@ -84,8 +121,37 @@ summary:focus-visible {
     justify-content: space-between;
     gap: 1.5rem;
     width: min(100% - 2.5rem, 82rem);
-    min-height: 5.25rem;
+    min-height: 5rem;
     margin: 0 auto;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 0.7rem;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.brand-mark {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--brand);
+    font-family: "DM Sans", Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.primary-navigation {
+    max-width: 100%;
 }
 
 .navigation-list {
@@ -98,119 +164,55 @@ summary:focus-visible {
     list-style: none;
 }
 
-.primary-navigation {
-    max-width: 100%;
-}
-
 .navigation-link {
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
-    padding: 0.45rem 0.8rem;
-    border-radius: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
     color: var(--brand);
     font-size: 1rem;
     font-weight: 650;
     text-decoration: none;
+    transition: background-color 0.2s ease;
 }
 
 .navigation-link:hover {
     background: var(--warm-surface);
 }
 
-.navigation-link:focus-visible {
-    outline-color: var(--focus);
-}
-
-.section-anchor {
-    /* Evita que o cabeçalho fixo esconda o título da seção selecionada. */
-    scroll-margin-top: 6rem;
-}
-
-.brand {
+/* Contador no mesmo vocabulário visual do status "Ativa" */
+.campaign-count {
     display: inline-flex;
     align-items: center;
-    flex: 0 0 auto;
-    gap: 0.7rem;
-    color: inherit;
-    font-size: 1.15rem;
-    font-weight: 750;
-    text-decoration: none;
-}
-
-.brand-mark {
-    display: grid;
-    width: 2.75rem;
-    height: 2.75rem;
-    place-items: center;
-    border-radius: 1.375rem;
-    color: #ffffff;
-    background: var(--brand);
-}
-
-.campaign-count {
+    gap: 0.5rem;
     margin: 0;
-    padding: 0.4rem 0.8rem;
+    padding: 0.4rem 0.9rem;
     border-radius: 999px;
-    color: var(--brand);
-    background: var(--warm-surface);
+    color: var(--mint-ink);
+    background: var(--mint-light);
     font-size: 0.88rem;
     font-weight: 700;
     white-space: nowrap;
 }
 
+.campaign-count::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--mint);
+    content: "";
+}
+
+.section-anchor {
+    scroll-margin-top: 6rem;
+}
+
+/* ---------- Layout geral ---------- */
+
 .page-content {
     width: min(100% - 2.5rem, 82rem);
     margin: 0 auto;
-}
-
-.intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(19rem, 0.95fr);
-    align-items: center;
-    gap: clamp(1.5rem, 5vw, 4rem);
-    max-width: none;
-    margin-top: 2rem;
-    padding: clamp(2rem, 6vw, 4.5rem);
-    border: 1px solid #e7d4ab;
-    border-radius: 1.35rem;
-    background: #f4d48d;
-}
-
-.intro-copy-block {
-    max-width: 42rem;
-}
-
-.intro-art {
-    display: grid;
-    min-height: 19rem;
-    margin: 0;
-    padding: 1.5rem;
-    place-items: center;
-    border-radius: 1rem;
-    background: #d6e9c9;
-}
-
-.intro-art img {
-    display: block;
-    width: min(100%, 25rem);
-    height: auto;
-}
-
-.intro-art figcaption {
-    margin-top: -0.25rem;
-    color: var(--green-deep);
-    font-size: 0.95rem;
-    font-weight: 700;
-}
-
-.eyebrow {
-    margin: 0 0 0.5rem;
-    color: var(--orange);
-    font-size: 0.9rem;
-    font-weight: 750;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
 }
 
 h1,
@@ -220,27 +222,105 @@ p {
     overflow-wrap: anywhere;
 }
 
+h1,
+h2,
+h3 {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--orange);
+    font-size: 0.85rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ---------- Ícones (emojis decorativos) ---------- */
+
+.icon {
+    display: inline-block;
+    margin-right: 0.4rem;
+    letter-spacing: 0;
+    transition: transform 0.2s ease;
+}
+
+.navigation-link:hover .icon,
+.guidance-card:hover h3 .icon {
+    transform: translateY(-2px) rotate(-10deg) scale(1.15);
+}
+
+.campaign-type .icon {
+    margin-right: 0;
+}
+
+/* ---------- Hero ---------- */
+
+.intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    margin-top: 2rem;
+    padding: clamp(2rem, 6vw, 4rem);
+    border: 1px solid var(--line);
+    border-radius: 2rem;
+    background: linear-gradient(135deg, #fff6e3 0%, #fdeccb 100%);
+}
+
+.intro-copy-block {
+    max-width: 42rem;
+}
+
 h1 {
-    max-width: 14ch;
+    max-width: 16ch;
     margin: 0;
-    font-size: clamp(2.6rem, 6vw, 5rem);
-    line-height: 1.08;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
 }
 
 .intro-copy {
-    max-width: 58ch;
+    max-width: 52ch;
     margin: 1.25rem 0 0;
     color: var(--text-muted);
     font-size: 1.15rem;
 }
 
+/* Cartão da ilustração com as "bolhas" de cor do mockup */
+.intro-art {
+    display: grid;
+    min-height: 19rem;
+    margin: 0;
+    padding: 1.5rem;
+    place-items: center;
+    border-radius: 1.5rem;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(255, 210, 124, 0.75) 0 5rem, transparent 5.05rem),
+        radial-gradient(circle at 96% 98%, rgba(170, 218, 150, 0.95) 0 6rem, transparent 6.05rem),
+        #fffaf1;
+}
+
+.intro-art img {
+    display: block;
+    width: min(100%, 22rem);
+    height: auto;
+}
+
+.intro-art figcaption {
+    margin-top: -0.25rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* ---------- Seção de campanhas ---------- */
+
 .campaigns {
-    margin-top: 1.75rem;
-    padding: clamp(1.5rem, 4vw, 3rem);
-    border: 1px solid var(--warm-border);
-    border-radius: 2rem;
-    background: var(--surface);
+    margin-top: 3.5rem;
 }
 
 .section-heading {
@@ -248,13 +328,15 @@ h1 {
     align-items: end;
     justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
 }
 
-.section-heading h2 {
+.section-heading h2,
+.guidance h2,
+.about h2 {
     margin: 0;
-    font-size: clamp(1.9rem, 4vw, 2.6rem);
-    line-height: 1.2;
+    font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+    line-height: 1.1;
 }
 
 .section-copy {
@@ -266,8 +348,8 @@ h1 {
 .status-message,
 .error-message {
     padding: 1rem 1.2rem;
-    border: 1px solid var(--warm-border);
-    border-radius: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
     background: var(--warm-surface);
 }
 
@@ -278,85 +360,105 @@ h1 {
 .error-message {
     border-color: #9b3030;
     color: #6d1e1e;
+    background: #fff4f0;
 }
 
 .error-message p {
     margin-top: 0;
 }
 
+/* ---------- Botão genérico ---------- */
+
 .button {
-    min-height: 2.5rem;
-    padding: 0.5rem 0.85rem;
-    border: 1px solid var(--green-deep);
-    border-radius: 0.65rem;
+    min-height: 2.75rem;
+    padding: 0.55rem 1.1rem;
+    border: 1.5px solid var(--brand);
+    border-radius: 999px;
     color: #ffffff;
-    background: var(--green-deep);
+    background: var(--brand);
     font: inherit;
     font-weight: 650;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .button:hover {
-    background: #103b2b;
+    background: var(--brand-hover);
 }
+
+/* ---------- Lista e cartões ---------- */
 
 .campaign-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
     margin: 1rem 0 0;
     padding: 0;
     list-style: none;
 }
 
 .campaign-card {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
-    grid-template-areas:
-        "top top"
-        "title details"
-        "summary details";
-    align-content: start;
-    column-gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    padding: 1.35rem;
-    border: 1px solid var(--warm-border);
-    border-radius: 1rem;
-    background: var(--green-soft);
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.campaign-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }
 
 .campaign-card-top {
-    grid-area: top;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .campaign-type,
 .campaign-status {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    min-height: 1.7rem;
-    padding: 0.2rem 0.65rem;
+    gap: 0.4rem;
+    min-height: 1.9rem;
+    padding: 0.2rem 0.8rem;
     border-radius: 999px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
     line-height: 1.2;
 }
 
+/* Categoria: cor quente que varia entre cartões (nunca verde, para não
+   ser confundida com o status). */
 .campaign-type {
     min-width: 0;
-    max-width: 70%;
+    max-width: 78%;
     overflow-wrap: anywhere;
     color: #59300d;
     background: var(--yellow);
 }
 
+.campaign-list > li:nth-child(3n + 2) .campaign-type {
+    color: #6b2f12;
+    background: var(--peach);
+}
+
+.campaign-list > li:nth-child(3n + 3) .campaign-type {
+    color: #4b2e12;
+    background: var(--sand);
+}
+
+/* Status: único uso do verde dentro do cartão */
 .campaign-status {
-    color: #12614d;
+    flex: 0 0 auto;
+    color: var(--mint-ink);
     background: var(--mint-light);
 }
 
@@ -369,53 +471,48 @@ h1 {
 }
 
 .campaign-card h3 {
-    grid-area: title;
-    margin: 0;
-    font-size: 1.5rem;
-    line-height: 1.3;
+    margin: 0 0 0.6rem;
+    font-size: 1.85rem;
+    line-height: 1.12;
 }
 
 .campaign-summary {
-    grid-area: summary;
-    margin: 0.7rem 0;
+    margin: 0 0 1.5rem;
     color: var(--text-muted);
 }
 
+/* Cartão selecionado (detalhes abertos): creme com borda laranja */
+.campaign-card:has(details[open]) {
+    border-color: var(--orange-card-line);
+    background: #fff3d9;
+    box-shadow: var(--shadow-md);
+}
+
+/* ---------- Detalhes (abre/fecha) ---------- */
+
 .campaign-card details {
-    grid-area: details;
-    align-self: stretch;
-    margin: 0;
-    padding: 0 0 0 1.25rem;
-    border-left: 1px solid #b8cfaf;
-}
-
-.campaign-list > li:nth-child(even) .campaign-card {
-    grid-template-areas:
-        "top top"
-        "details title"
-        "details summary";
-    background: #ffebc2;
-}
-
-.campaign-list > li:nth-child(even) .campaign-card details {
-    padding: 0 1.25rem 0 0;
-    border-right: 1px solid #e1c98f;
-    border-left: 0;
+    /* Empurra o botão para a base, alinhando os cartões da mesma linha */
+    margin: auto 0 0;
 }
 
 .campaign-card summary {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    min-height: 2.35rem;
-    padding: 0.45rem 0.75rem;
-    border: 1px solid var(--brand);
-    border-radius: 0.6rem;
-    color: var(--green-deep);
-    background: #fffaf1;
-    font-size: 0.98rem;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.6rem 1.1rem;
+    border: 1.5px solid var(--brand);
+    border-radius: 999px;
+    color: #ffffff;
+    background: var(--brand);
+    font-size: 1rem;
     font-weight: 650;
+    text-align: center;
     cursor: pointer;
     list-style: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .campaign-card summary::-webkit-details-marker {
@@ -423,85 +520,145 @@ h1 {
 }
 
 .campaign-card summary::after {
-    margin-left: 0.5rem;
     content: "+";
-    font-size: 1.15rem;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.campaign-card summary:hover {
+    background: var(--brand-hover);
+}
+
+/* Aberto: o botão vira contorno e a ação principal passa a ser o link oficial */
+.campaign-card details[open] summary {
+    color: var(--brand);
+    background: transparent;
+}
+
+.campaign-card details[open] summary:hover {
+    background: var(--warm-surface);
 }
 
 .campaign-card details[open] summary::after {
     content: "−";
 }
 
-.campaign-card details p {
-    margin-bottom: 0;
+.campaign-card details > p {
+    margin: 1rem 0 0;
+    color: var(--text-muted);
 }
 
-.campaign-card details p + p {
-    margin-top: 0.75rem;
+/* Bloco "Como contribuir" em destaque suave */
+.campaign-card details > p:last-of-type {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    color: var(--ink);
+    background: #ffffff;
 }
 
-/* O link segue sendo navegação, com aparência de botão para destacar a ação. */
+.campaign-card details > p:last-of-type strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--orange);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Link de contribuição: navegação com aparência de botão */
 .contribution-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.35rem;
-    margin: 0.35rem 0.2rem;
-    padding: 0.45rem 0.75rem;
+    gap: 0.2rem;
+    min-height: 1rem;
+    margin: 0.3rem 0 0;
+    padding: 0.3rem 0.8rem;
+    border-color: var(--orange);
     border-radius: 0.6rem;
-    font-size: 0.98rem;
-    font-weight: 650;
+    color: #ffffff;
+    background: var(--orange);
+    font-size: 0.8rem;
+    font-weight: 500;
     text-decoration: none;
 }
 
-.campaign-card details[open] summary {
-    margin-bottom: 0.8rem;
+.contribution-link::after {
+    content: "↗";
 }
+
+.contribution-link:hover {
+    background: #963006;
+}
+
+/* ---------- Como ajudar ---------- */
 
 .guidance {
-    margin-top: 1.75rem;
+    margin-top: 3.5rem;
     padding: clamp(1.5rem, 4vw, 3rem);
-    border: 1px solid #efd3b5;
-    border-radius: 1.25rem;
-    background: #f5d59b;
-}
-
-.guidance h2,
-.about h2 {
-    margin: 0;
-    font-size: clamp(1.9rem, 4vw, 2.6rem);
-    line-height: 1.2;
+    border: 1px solid var(--line);
+    border-radius: 2rem;
+    background: var(--warm-surface);
 }
 
 .guidance-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
 }
 
 .guidance-card {
-    padding: 1.25rem;
-    border: 1px solid var(--warm-border);
-    border-radius: 0.85rem;
-    background: #fffaf2;
+    padding: 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: #fffdf8;
 }
 
 .guidance-step {
     display: inline-grid;
-    width: 2rem;
-    height: 2rem;
+    width: 2.25rem;
+    height: 2.25rem;
     place-items: center;
     border-radius: 50%;
     color: var(--brand);
     background: var(--yellow);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 750;
 }
 
+.guidance-card:nth-child(2) {
+    border-color: var(--orange-card-line);
+    background: var(--orange-card);
+}
+
+.guidance-card:nth-child(2) .guidance-step {
+    background: #fff7ea;
+}
+
+.guidance-card:nth-child(3) {
+    border-color: var(--green-card-line);
+    background: var(--green-card);
+}
+
+.guidance-card:nth-child(3) .guidance-step {
+    color: #ffffff;
+    background: var(--mint);
+}
+
+.guidance-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.guidance-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
 .guidance-card h3 {
-    margin: 0.8rem 0 0.35rem;
-    font-size: 1.1rem;
+    margin: 0.9rem 0 0.35rem;
+    font-size: 1.4rem;
 }
 
 .guidance-card p {
@@ -509,35 +666,73 @@ h1 {
     color: var(--text-muted);
 }
 
+/* ---------- Sobre: dois cards laterais que se completam ---------- */
+
 .about {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 2rem;
-    align-items: center;
-    margin-bottom: 4rem;
-    padding: clamp(1.5rem, 4vw, 3rem);
-    border-radius: 1.25rem;
-    color: #ffffff;
-    background: var(--green-deep);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+    margin: 3rem 0 4rem;
+}
+
+.about > div,
+.about > p {
+    margin: 0;
+    padding: clamp(1.4rem, 3vw, 2rem);
+    border: 1px solid var(--line);
+}
+
+/* Esquerda: título. Cantos externos bem redondos, internos mais suaves */
+.about > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: var(--orange-card-line);
+    border-radius: 1.75rem 0.75rem 0.75rem 1.75rem;
+    background: var(--orange-card);
 }
 
 .about .eyebrow {
-    color: #d5e6dc;
+    color: #a8350a;
 }
 
 .about h2 {
-    max-width: 18ch;
+    max-width: 22ch;
+    font-size: clamp(1.55rem, 2.6vw, 2.05rem);
+    line-height: 1.15;
 }
 
+/* Direita: texto de apoio, em verde bem clarinho */
 .about > p {
-    margin: 0;
-    color: #e6eee9;
-    font-size: 1.125rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    border-color: var(--green-card-line);
+    border-radius: 0.75rem 1.75rem 1.75rem 0.75rem;
+    color: #3d5a3a;
+    background: var(--green-card);
+    font-size: 1rem;
 }
+
+.about > p::before {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--mint);
+    content: "♥";
+    font-size: 0.9rem;
+}
+
+/* ---------- Rodapé ---------- */
 
 .site-footer {
     padding: 1.5rem max(1.25rem, calc((100vw - 82rem) / 2));
-    border-top: 1px solid var(--warm-border);
+    border-top: 1px solid var(--line);
     color: var(--text-muted);
     background: var(--warm-surface);
     font-size: 1rem;
@@ -556,8 +751,9 @@ h1 {
     display: none !important;
 }
 
+/* ---------- Telas estreitas ---------- */
+
 @media (max-width: 40rem) {
-    /* Em telas estreitas, o menu quebra em linhas em vez de desaparecer. */
     .header-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -567,18 +763,36 @@ h1 {
         padding: 0.8rem 0;
     }
 
-    .navigation-list {
-        gap: 0.15rem;
-    }
-
     .primary-navigation {
         width: 100%;
     }
 
+    .navigation-list {
+        gap: 0.15rem;
+    }
+
     .navigation-link {
         min-height: 2.5rem;
-        padding: 0.35rem 0.6rem;
+        padding: 0.35rem 0.7rem;
         font-size: 0.95rem;
+    }
+
+    .intro {
+        grid-template-columns: 1fr;
+        margin-top: 1rem;
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .intro-art {
+        min-height: 15rem;
+        padding: 1rem;
+    }
+
+    .campaigns,
+    .guidance,
+    .about {
+        margin-top: 2.5rem;
     }
 
     .section-heading {
@@ -587,42 +801,32 @@ h1 {
         gap: 0.5rem;
     }
 
+    .guidance {
+        border-radius: 1.5rem;
+    }
+
     .about {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.75rem;
         margin-bottom: 2.5rem;
     }
 
-    .intro {
-        grid-template-columns: 1fr;
-        margin-top: 1rem;
-        padding: 1.5rem;
-        border-radius: 1rem;
+    .about > div,
+    .about > p {
+        border-radius: 1.5rem;
+    }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
     }
 
-    .intro-art {
-        min-height: 15rem;
-        padding: 1rem;
-    }
-
-    .campaign-card,
-    .campaign-list > li:nth-child(even) .campaign-card {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "top" "title" "summary" "details";
-        row-gap: 0.35rem;
-    }
-
-    .campaign-card details,
-    .campaign-list > li:nth-child(even) .campaign-card details {
-        margin-top: 0.55rem;
-        padding: 0.85rem 0 0;
-        border-top: 1px solid var(--warm-border);
-        border-right: 0;
-        border-left: 0;
-    }
-
-    .campaigns,
-    .guidance {
-        border-radius: 1rem;
+    .campaign-card:hover,
+    .guidance-card:hover,
+    .navigation-link:hover .icon,
+    .guidance-card:hover h3 .icon {
+        transform: none;
     }
 }
